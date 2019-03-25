@@ -1,4 +1,4 @@
-package bo;
+package com.miage.altea.tp.battle_api.bo;
 
 import java.util.UUID;
 

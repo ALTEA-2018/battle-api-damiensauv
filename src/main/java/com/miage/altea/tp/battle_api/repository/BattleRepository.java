@@ -1,8 +1,7 @@
-package repository;
+package com.miage.altea.tp.battle_api.repository;
 
-import bo.Battle;
+import com.miage.altea.tp.battle_api.bo.Battle;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 

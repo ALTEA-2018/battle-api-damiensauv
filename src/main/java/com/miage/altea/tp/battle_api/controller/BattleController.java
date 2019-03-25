@@ -1,10 +1,10 @@
-package controller;
+package com.miage.altea.tp.battle_api.controller;
 
 
-import bo.Battle;
+import com.miage.altea.tp.battle_api.bo.Battle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import service.BattleService;
+import com.miage.altea.tp.battle_api.service.BattleService;
 
 import java.util.List;
 import java.util.UUID;

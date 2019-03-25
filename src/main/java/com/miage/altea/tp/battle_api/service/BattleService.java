@@ -1,8 +1,8 @@
-package service;
+package com.miage.altea.tp.battle_api.service;
 
-import bo.Battle;
+import com.miage.altea.tp.battle_api.bo.Battle;
 import org.springframework.stereotype.Service;
-import repository.BattleRepository;
+import com.miage.altea.tp.battle_api.repository.BattleRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
