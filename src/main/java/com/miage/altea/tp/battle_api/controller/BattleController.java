@@ -2,42 +2,50 @@ package com.miage.altea.tp.battle_api.controller;
 
 
 import com.miage.altea.tp.battle_api.bo.Battle;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.miage.altea.tp.battle_api.bo.Fight;
 import com.miage.altea.tp.battle_api.service.BattleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/battles")
 public class BattleController {
 
-    @Autowired
     private BattleService battleService;
 
-    @PostMapping
-    public UUID battle(@PathVariable(name = "trainer") String trainer, @PathVariable(name = "opponent") String opponent) {
-        return this.battleService.createBattle(trainer, opponent);
+    @Autowired
+    public void setBattleService(BattleService battleService) {
+        this.battleService = battleService;
     }
 
-    @GetMapping
-    public List<Battle> getAll() {
-        return this.battleService.getAll();
+    @PostMapping(value = "/battles", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Battle> battle(@RequestBody Fight fight) {
+        if (fight.getOpponent().equals(fight.getTrainer())) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(this.battleService.createBattle(fight.getTrainer(), fight.getOpponent()));
     }
 
-    @GetMapping("/{uuid}")
-    public Battle getId(@PathVariable(name = "uuid") UUID uuid) {
-        return this.battleService.getByUUID(uuid);
+    @GetMapping("/battles")
+    public Iterable<Battle> battles() {
+        return this.battleService.getBattles();
     }
 
-    @PostMapping("/{uuid}/{trainerName}/attack")
-    public Battle attack(@PathVariable(name = "uuid") UUID uuid, @PathVariable(name = "trainer") String trainer) {
-
-        this.battleService.attack(uuid, trainer);
-
-        return null;
+    @GetMapping("/battles/{uuid}")
+    public Battle battle(@PathVariable UUID uuid) {
+        return this.battleService.getBattle(uuid);
     }
 
+    @PostMapping("/battles/{uuid}/{trainerName}/attack")
+    public ResponseEntity<Battle> attack(@PathVariable UUID uuid, @PathVariable String trainerName) {
+        try {
+            return ResponseEntity.ok(this.battleService.attack(uuid, trainerName));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }

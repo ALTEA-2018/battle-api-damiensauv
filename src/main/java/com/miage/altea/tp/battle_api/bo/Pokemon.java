@@ -1,43 +1,28 @@
 package com.miage.altea.tp.battle_api.bo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Pokemon {
 
-
-    private int id;
-
-    private int pokemonType;
-
-    private int level;
+    public int id;
+    public PokemonType pokemonType;
+    public int level;
+    public float maxHp;
+    public float attack;
+    public float defense;
+    public float speed;
+    public float hp;
+    public boolean ko;
+    public boolean alive;
 
     public Pokemon() {
     }
 
-    public Pokemon(int pokemonType, int level) {
-        this.pokemonType = pokemonType;
-        this.level = level;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Pokemon(int id) {
         this.id = id;
     }
 
-    public int getPokemonType() {
-        return pokemonType;
-    }
-
-    public void setPokemonType(int pokemonType) {
-        this.pokemonType = pokemonType;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 }
